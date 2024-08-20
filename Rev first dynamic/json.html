@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>json</title>
+</head>
+
+<body>
+    <section>
+        <div align="center">
+            <input type="hidden" id="editid">
+            name:-<input type="text" id="name"><br><br>
+            phone:-<input type="number" id="phone"><br><br>
+            <input type="button" value="Submit" onclick="userInputdata()">
+
+        </div>
+
+        <br>
+
+        <center>
+            <table border="1" cellspacing="0" cellpadding="10">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>name</th>
+                        <th>phone</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="record"></tbody>
+            </table>
+        </center>
+    </section>
+
+</body>
+
+<script type="text/javascript">
+    let data = []
+
+    const Viewrecord = () => {
+        let all = JSON.parse(localStorage.getItem('srk')) || [];
+        let tbl = "";
+        all.map((val) => {
+            return (
+                tbl += `
+                <tr>
+                    <td>${val.id}</td>
+                    <td>${val.name}</td>
+                    <td>${val.phone}</td>
+                    <td><button onclick="userDeletdata(${val.id})">Delet</button>
+                        ||
+                        <button onclick="editUser(${val.id})">Edit</button>
+                        </td>
+                </tr>
+                `
+            )
+        })
+        document.getElementById('record').innerHTML = tbl;
+    }
+    Viewrecord();
+
+    const userInputdata = () => {
+        let name = document.getElementById('name').value;
+        let phone = document.getElementById('phone').value;
+
+        if (!name && !name) {
+            alert("Plez all data requred...!")
+            return false
+        }
+        //alert(name)
+        // console.log(phone);
+        let obj = {
+            id: Math.floor(Math.random() * 100),
+            name: name,
+            phone: phone,
+        }
+        //  console.log(obj);
+
+       if(editid){
+            updateUser();
+       }else{
+        if (JSON.parse(localStorage.getItem("srk")) == null || JSON.parse(localStorage.getItem("srk")) == undefined) {
+            data.push(obj)
+            localStorage.setItem("srk", JSON.stringify(data))
+        } else {
+            let old = JSON.parse(localStorage.getItem("srk"));
+            old.push(obj);
+            localStorage.setItem('srk', JSON.stringify(old));
+        }
+        alert("The data is add successfuly submit");
+
+       }
+
+        document.getElementById('name').value = ""
+        document.getElementById('phone').value = ""
+        Viewrecord();
+    }
+
+    const userDeletdata = (id) => {
+        //console.log(id);
+        let d = JSON.parse(localStorage.getItem('srk'));
+        let de = d.filter(val => val.id != id);
+        localStorage.setItem('srk', JSON.stringify(de));
+        Viewrecord();
+    }
+
+    const editUser = (id) =>{
+      let all=JSON.parse(localStorage.getItem('srk'));
+      let edit=all.find((val)=> val.id == id);
+      console.log(edit);
+      document.getElementById('name').value=edit.name
+      document.getElementById('phone').value=edit.phone
+      document.getElementById('editid').value=id
+
+      Viewrecord();
+    }
+
+    const updateUser = () =>{
+        let all=JSON.parse(localStorage.getItem('srk'));
+        let name=document.getElementById('name').value;
+        let phone=document.getElementById('phone').value;
+        let id=document.getElementById('editid').value;
+
+        all.map((val)=>{
+            if(val.id == id){
+                val.name=name;
+                val.phone=phone
+                }
+                return val;
+        })
+        localStorage.setItem('srk',JSON.stringify(all));
+        alert("update sucessfully.");
+        Viewrecord();
+    }
+
+</script>
+
+</html>

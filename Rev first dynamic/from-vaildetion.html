@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form>
+        <div align="center">
+            name : <input type="text" id="name">
+            <br>
+            <span id="errName" style="color: red;"></span>
+            <br><br>
+            email : <input type="text" id="email">
+            <br>
+            <span id="errEmail" style="color: red;"></span>
+            <br><br>
+            password : <input type="text" id="password">
+            <br>
+            <span id="errPassword" style="color: red;"></span>
+            <br><br>
+            <input type="button" value="Submit" onclick="saveRcord()">
+            <br>
+            <h4 id="suFull" style="color: green;"></h4>
+        </div>
+    </form>
+
+    <script type="text/javascript">
+        const saveRcord = () => {
+            let name = document.getElementById('name').value
+            let email = document.getElementById('email').value
+            let password = document.getElementById('password').value
+            let check = true
+            if (!name) {
+                document.getElementById('errName').innerHTML = 'Plz enter a Name...!'
+                check = false
+            }
+            if (!email) {
+                document.getElementById('errEmail').innerHTML = 'Plz enter a Email...!'
+                //return false;
+                check = false
+
+            } else {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email)) {
+                    document.getElementById('errEmail').innerHTML = 'Plz enter a vaild Email...!'
+                    document.getElementById('errName').innerHTML = ''
+                    return false;
+                    check = false
+                }
+            }
+            if (!password) {
+                document.getElementById('errPassword').innerHTML = 'Plz enter a Password'
+                //alert("hi............")
+            } else {
+                if (password.length < 8) {
+                    document.getElementById('errPassword').innerHTML = 'Password should be at least 8 characters';
+                    check = false;
+                } else if (password.length > 30) {
+                    document.getElementById('errPassword').innerHTML = 'Password should not exceed 30 characters';
+                    check = false;
+                } else if (!/[A-Z]/.test(password)) {
+                    document.getElementById('errPassword').innerHTML = 'Password should have at least 1 uppercase letter';
+                    check = false;
+                } else if (!/[a-z]/.test(password)) {
+                    document.getElementById('errPassword').innerHTML = 'Password should have at least 1 lowercase letter';
+                    check = false;
+                } else if (!/[0-9]/.test(password)) {
+                    document.getElementById('errPassword').innerHTML = 'Password should have at least 1 number';
+                    check = false;
+                } else if (!/[$#%£&§@]/.test(password)) {
+                    document.getElementById('errPassword').innerHTML = 'Password should have at least 1 special character';
+                    check = false;
+                }
+                
+            }
+            if (check === true) {
+                document.getElementById('suFull').innerHTML = 'Succues fully submit'
+                document.getElementById('errName').innerHTML = ''
+                document.getElementById('errEmail').innerHTML = ''
+            }
+            console.log(`${name}${email}${password}`);
+
+            name = document.getElementById('name').value = ""
+            email = document.getElementById('email').value = ""
+            password = document.getElementById('password').value = ""
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,10 @@
+<script type="text/javascript">
+    let arr = [10, 20, 30, 50, 60]
+    let pos = 3;
+    let value = 40;
+    for (let i = arr.length - 1; i >= pos; i--) {
+        arr[i + 1] = arr[i]
+    }
+    arr[pos] = value
+    console.log(arr);
+</script>

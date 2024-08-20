@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table in-put data</title>
+</head>
+<style>
+    body{
+        font-family:cursive;
+        font-size: larger;
+    }
+    table tr td {
+        text-align: center;
+        padding: 5px 0px;
+        color: white;
+    }
+
+    table {
+        background-color: black;
+    }
+</style>
+
+<body>
+
+    <center>
+        <h1>Table data :=</h1>
+    </center>
+
+    <table align="center" border="1" cellspacing="5px" cellpading="15px" width="100%">
+        <tr>
+            <td>No</td>
+            <td>Name</td>
+            <td>phonenumber</td>
+        </tr>
+        <tbody id="data"></tbody>
+    </table>
+
+</body>
+<script type="text/javascript">
+    let recod = [
+        {
+            name: "srk",
+            phonenumber: 5865
+        },
+        {
+            name: "abhay",
+            phonenumber: 5866
+        },
+        {
+            name: "jay",
+            phonenumber: 5867
+        },
+        {
+            name: "rajesh",
+            phonenumber: 5868
+        },
+        {
+            name: "srk",
+            phonenumber: 5865
+        },
+        {
+            name: "abhay",
+            phonenumber: 5866
+        },
+        {
+            name: "jay",
+            phonenumber: 5867
+        },
+        {
+            name: "rajesh",
+            phonenumber: 5868
+        },
+        {
+            name: "srk",
+            phonenumber: 5865
+        },
+        {
+            name: "abhay",
+            phonenumber: 5866
+        },
+        {
+            name: "jay",
+            phonenumber: 5867
+        },
+        {
+            name: "rajesh",
+            phonenumber: 5868
+        },
+        {
+            name: "srk",
+            phonenumber: 5865
+        },
+        {
+            name: "abhay",
+            phonenumber: 5866
+        },
+        {
+            name: "jay",
+            phonenumber: 5867
+        },
+        {
+            name: "rajesh",
+            phonenumber: 5868
+        },
+        {
+            name: "srk",
+            phonenumber: 5865
+        },
+        {
+            name: "abhay",
+            phonenumber: 5866
+        },
+        {
+            name: "jay",
+            phonenumber: 5867
+        },
+        {
+            name: "rajesh",
+            phonenumber: 5868
+        },
+        {
+            name: "srk",
+            phonenumber: 5865
+        },
+        {
+            name: "abhay",
+            phonenumber: 5866
+        },
+        {
+            name: "jay",
+            phonenumber: 5867
+        },
+        {
+            name: "rajesh",
+            phonenumber: 5868
+        },
+        {
+            name: "srk",
+            phonenumber: 5865
+        },
+        {
+            name: "abhay",
+            phonenumber: 5866
+        },
+        {
+            name: "jay",
+            phonenumber: 5867
+        },
+        {
+            name: "rajesh",
+            phonenumber: 5868
+        },
+        {
+            name: "srk",
+            phonenumber: 5865
+        },
+        {
+            name: "abhay",
+            phonenumber: 5866
+        },
+        {
+            name: "jay",
+            phonenumber: 5867
+        },
+        {
+            name: "rajesh",
+            phonenumber: 5868
+        },
+    ]
+
+    // let recod = [
+    //     {
+    //         name: prompt("Enter your name:-"),
+    //         phonenumber: parseInt(prompt("Enter your phonenumber:-"))
+    //     }
+    // ]
+    let tbl = ""
+    recod.map((value, num) => {
+        tbl +=
+            `
+            <tr>
+                <td>${++num}</td>
+                <td>${value.name}</td>
+                <td>${value.phonenumber}</td>
+            </tr>
+         `
+    })
+    document.getElementById('data').innerHTML = tbl;
+</script>
+
+</html>

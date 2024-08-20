@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FROM Validestions</title>
+</head>
+
+
+
+<body>
+    <section>
+        <div align="center">
+            <h1>Enter User details</h1>
+            name <input type="text" id="name">
+            phone <input type="text" id="phone">
+            <input type="button" value="submit" onclick="userData()">
+        </div>
+    </section>
+
+    <section>
+        <div align="center">
+            <h2>Viwe data</h2>
+            <table align="center" border="1">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>name</th>
+                        <th>Phone</th>
+                    </tr>
+                </thead>
+                <tbody id="recode">
+
+                </tbody>
+            </table>
+        </div>
+    </section>
+</body>
+
+<script type="text/javascript">
+    let data = [];
+    const userData = () => {
+        let name = document.getElementById('name').value;
+        let phone = document.getElementById('phone').value;
+        console.log(name);
+        console.log(phone);
+        if (!name || !phone) {
+            alert("All value are re....!")
+            return false;
+        }
+        let obj = {
+            id: Math.floor(Math.random() * 10000),
+            name,
+            phone,
+        }
+        data.push(obj);
+        viewRecord();
+    }
+
+    const viewRecord = () => {
+        console.log(data);
+        let tbl = "";
+
+        data.map((val, index) => {
+            return (
+                tbl +=
+                ` <tr>
+                    <td>${++index}</td>
+                    <td>${val.name}</td>
+                    <td>${val.phone}</td>
+                </tr>`
+            )
+        })
+        document.getElementById('recode').innerHTML = tbl;
+    }
+    viewRecord()
+
+</script>
+
+</html>

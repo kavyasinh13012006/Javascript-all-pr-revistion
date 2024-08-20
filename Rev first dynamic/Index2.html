@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User data print</title>
+</head>
+<style>
+    body {
+        background-color: black;
+        color: greenyellow;
+        font-size: larger;
+        font-family: cursive;
+        align-items: center;
+    }
+
+    input {
+        width: 300px;
+        height: 28px;
+        background-color: blanchedalmond;
+        border: greenyellow;
+        border-radius: 10px;
+    }
+
+    button {
+        color: black;
+        background-color: greenyellow;
+        border: 0;
+        font-size: larger;
+        font-family: cursive;
+        border-radius: 20%;
+        padding: 10px 15px;
+    }
+</style>
+
+<body>
+    <section>
+        <div align="center">
+            <h1>Enter user details :-</h1>
+
+            <form action="">
+                Name:- <input type="text" id="name" placeholder="name">
+                <br>
+                <br>
+                Phone-number:- <input type="number" id="phone" placeholder="Ph-number">
+                <br>
+                <br>
+
+                date of birth:- <input type="date" id="birthdate" placeholder="data of birth">
+                <br>
+                <br>
+
+                City:- <input type="text" list="we" id="City" placeholder="City">
+                <datalist id="we">
+                    <option value="--Selected --"></option>
+                    <option value="Surat"></option>
+                    <option value="Vapi"></option>
+                    <option value="Atul"></option>
+                    <option value="Nadia"></option>
+                    <option value="Anad"></option>
+                </datalist>
+                <br>
+                <br>
+
+                Email:- <input type="email" id="email" placeholder="Email address">
+                <br>
+                <br>
+
+                Cours : <input type="text" list="cours" id="Cours" placeholder="Cours">
+                <datalist id="cours">
+                    <option value="--Selected--"></option>
+                    <option value="Ui-ux"></option>
+                    <option value="Full-stack"></option>
+                    <option value="Master front end developer"></option>
+                </datalist>
+                <br>
+                <br>
+
+                <input type="button" value="Submit" onclick="userViewdata()" style="color: black;
+                background-color: greenyellow;
+                border: 0;
+                font-size: larger;
+                font-family: cursive;
+                border-radius: 20%;
+                padding: 10px 15px;
+                width: 100px;
+                height:50px;">
+                <!-- <button type="Submit" onclick="userViewdata()">Submit</button> -->
+                <button type="reset">Reset</button>
+                <br>
+                <br>
+            </form>
+
+            <section>
+                <div align="center">
+                    <H2>Viwe data</H2>
+                    <table border="1" width="100%" style="border-color: greenyellow;">
+                        <tr align="center">
+                            <td>Grid</td>
+                            <td>Name</td>
+                            <td>Phone-number</td>
+                            <td>date of birth</td>
+                            <td>City</td>
+                            <td>Email</td>
+                            <td>Cours</td>
+                            <td>Action</td>
+                        </tr>
+                        <tbody id="data" align="center">
+
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </section>
+
+</body>
+
+<script type="text/javascript">
+
+    let data = [];
+
+
+    const viewRecord = () => {
+        // console.log(data);
+        let all = JSON.parse(localStorage.getItem('userdeta')) || []
+        let tbl = "";
+        all.map((value) => {
+            return (
+                tbl += `
+                        <tr>
+                            <td>${value.id}</td>    
+                            <td>${value.name}</td>    
+                            <td>${value.phone}</td>    
+                            <td>${value.birthdate}</td>    
+                            <td>${value.City}</td>    
+                            <td>${value.Email}</td>    
+                            <td>${value.Cours}</td>  
+                            <td><button onclick="deletData(${value.id})">Delet</button>
+                            <button onclick="updeta(${value.id})">Updeta</button>
+                            </td>  
+                        </tr>
+                    `
+            )
+        })
+        document.getElementById('data').innerHTML = tbl;
+
+        let name = document.getElementById('name').value = ""
+        let phone = document.getElementById('phone').value = ""
+        let birthdate = document.getElementById('birthdate').value = ""
+        let City = document.getElementById('City').value = ""
+        let Email = document.getElementById('email').value = ""
+        let Cours = document.getElementById('Cours').value = ""
+    }
+    viewRecord()
+
+    const userViewdata = () => {
+        // console.log("Hello");
+        let name = document.getElementById('name').value
+        let phone = document.getElementById('phone').value
+        let birthdate = document.getElementById('birthdate').value
+        let City = document.getElementById('City').value
+        let Email = document.getElementById('email').value
+        let Cours = document.getElementById('Cours').value
+        // console.log(name);
+        // console.log(phone);
+        // console.log(birthdate);
+        // console.log(City);
+        // console.log(Email);
+        // console.log(Cours);
+
+        if (!name || !phone || !birthdate || !City || !Email || !Cours) {
+            alert("Pleas All data fill requred..!")
+            return false;
+        }
+        let obj = {
+            id: Math.floor(Math.random() * 1000),
+            name: name,
+            phone: phone,
+            birthdate: birthdate,
+            City: City,
+            Email: Email,
+            Cours: Cours,
+        }
+        if (JSON.parse(localStorage.getItem('userdeta')) == undefined || JSON.parse(localStorage.getItem('userdeta')) == null) {
+            //alert("hi.............................................")
+            data.push(obj)
+            localStorage.setItem('userdeta', JSON.stringify(data))
+        } else {
+            let old = JSON.parse(localStorage.getItem('userdeta'))
+            old.push(obj)
+            localStorage.setItem('userdeta', JSON.stringify(old))
+        }
+        viewRecord();
+    }
+    const deletData = (id) => {
+        //alert(id)
+        let delet = JSON.parse(localStorage.getItem('userdeta'))
+        // console.log(delet);
+        let delet1 = delet.filter(value => value.id != id)
+        //console.log(delet1);
+        localStorage.setItem('userdeta', JSON.stringify(delet1))
+        alert('Your data is successfuly Delet')
+        viewRecord()
+    }
+
+    const updeta = (id) => {
+        // alert(id);
+        let all = JSON.parse(localStorage.getItem('userdeta'))
+        let upuser = all.find((val) => val.id == id)
+        console.log(upuser);
+        document.getElementById('name').value=upuser.name
+        document.getElementById('phone').value=upuser.name
+        document.getElementById('birthdate').value=upuser.name
+        document.getElementById('City').value=upuser.name
+        document.getElementById('Email').value=upuser.name
+        document.getElementById('Cours').value=upuser.name
+        viewRecord()
+    }
+
+
+</script>
+
+</html>
